@@ -4,10 +4,11 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const path = require('path');
+const formRoutes = require('./routes/formRoutes');
 
 dotenv.config();
+app.use(express.json());
 
-// Configuration CORS
 if (process.env.NODE_ENV === 'local') {
     app.use(cors({
         origin: 'http://localhost:3000',
@@ -19,7 +20,7 @@ if (process.env.NODE_ENV === 'local') {
     }));
 }
 
-// Configuration des fichiers statiques et des routes pour la production
+
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'client','dist')));
     app.get('*', (req, res) => {
@@ -27,7 +28,7 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-// Connexion à la base de données MongoDB
+
 const dbConnect = async () => {
     try {
         await mongoose.connect(process.env.MONGODB_URL);
@@ -37,6 +38,7 @@ const dbConnect = async () => {
     }
 };
 dbConnect();
+app.use('/forms', formRoutes);
 
 const PORT = process.env.PORT || 3000;
 

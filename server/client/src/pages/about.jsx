@@ -1,52 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-// Import de l'image depuis le dossier assets
 import AboutImage from '../assets/img/about.png';
 
 const About = () => {
   return (
     <div className="bg-white text-black min-h-screen">
-      {/* Barre de navigation */}
-      <div className="bg-white shadow-md p-2">
-        <div className="container mx-auto">
-          <div className="flex justify-between items-center">
-            <div className="w-12 h-12">
-              <img
-                className="w-full h-full"
-                src="https://th.bing.com/th/id/R.01eab780618cb688af2bfa044cf2af5a?rik=72bTO7biDcLEoA&pid=ImgRaw&r=0"
-                alt="notfound"
-              />
-            </div>
-            <div className="flex justify-center space-x-4">
-              <Link
-                to="/about"
-                className="text-blue-500 hover:text-blue-600 transition-all font-medium"
-              >
-                A Propos
-              </Link>
-              <Link
-                to="/services"
-                className="text-blue-500 hover:text-blue-600 transition-all font-medium"
-              >
-                Services
-              </Link>
-              <Link
-                to="/contact"
-                className="text-blue-500 hover:text-blue-600 transition-all font-medium"
-              >
-                Contact Us
-              </Link>
-            </div>
-            <div className="flex">
-              <button className="bg-blue-900 text-white hover:bg-blue-700 transition-all font-medium px-3 py-2 rounded-md mr-2">Sign In</button>
-              <button className="bg-blue-900 text-white hover:bg-blue-700 transition-all font-medium px-3 py-2 rounded-md mr-2">Sign Up</button>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      {/* Conteneur du contenu de la page "About" */}
       <div className="flex justify-center items-center h-full">
         <div className="container mx-auto py-5">
           {/* Contenu de la page "About" */}

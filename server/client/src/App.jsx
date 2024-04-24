@@ -1,31 +1,23 @@
-
 import React from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Navbar from './pages/navbar'; 
 import Index from './pages/index';
 import About from './pages/about';
-
-
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Index />
-  },
-  {
-    path: '/about',
-    element: <About /> 
-  }
-]);
-
+import Services from './pages/services';
+import Form from './pages/form';
 
 function App() {
-  
   return (
-    <RouterProvider router={router}>
-     
-    </RouterProvider>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/form" element={<Form />} />
+      </Routes>
+    </Router>
   );
 }
-
 
 export default App;
