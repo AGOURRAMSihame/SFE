@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const path = require('path');
-const formRoutes = require('./routes/formRoutes');
+const dataRoutes = require('./routes/dataRoutes');
 const messageRoute = require('./routes/MessageRoute');
 
 dotenv.config();
@@ -39,7 +39,7 @@ const dbConnect = async () => {
     }
 };
 dbConnect();
-app.use('/', formRoutes);
+app.use('/', dataRoutes);
 
 app.use('/', messageRoute);
 
