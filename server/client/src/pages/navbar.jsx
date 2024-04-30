@@ -1,53 +1,49 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { IoMdClose } from "react-icons/io";
 import { AiOutlineGoogle } from "react-icons/ai";
 import { FaFacebookF } from "react-icons/fa";
-import About from './about';
-import Servcies from './services'
 
 const Navbar = () => {
- const [type, setType] = useState('');
- const [show, setShow] = useState(false);
- const [state, setState] = useState({
+  const [type, setType] = useState('');
+  const [show, setShow] = useState(false);
+  const [state, setState] = useState({
     name: '',
     email: '',
     password: ''
- });
+  });
 
- const handleInputChange = (event) => {
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
     setState(prevState => ({ ...prevState, [name]: value }));
- };
+  };
 
- const handleSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     console.log(state);
     setShow(false);
- };
+  };
 
- const handleSignInClick = () => {
+  const handleSignInClick = () => {
     setType('signin');
     setShow(true);
- };
+  };
 
- const handleSignUpClick = () => {
+  const handleSignUpClick = () => {
     setType('signup');
     setShow(true);
- };
+  };
 
- const handleGoogleSignUp = () => {
-    // Add your Google sign-up logic here
+  const handleGoogleSignUp = () => {
     console.log('Signing up with Google');
- };
+  };
 
- const handleFacebookSignUp = () => {
-    // Add your Facebook sign-up logic here
+  const handleFacebookSignUp = () => {
     console.log('Signing up with Facebook');
- };
+  };
 
- return (
-    <div className="bg-white text-black min-h-screen">
+  return (
+    <div>
       {show && (
         <div className="w-screen visible opacity-100 transition-all duration-500 h-screen fixed flex justify-center items-center">
           <div className="w-[350px] bg-white bg-opacity-50 m-auto px-6 py-4 rounded-md relative">
@@ -200,7 +196,7 @@ const Navbar = () => {
         </div>
       </div>
     </div>
- );
+  );
 };
 
 export default Navbar;

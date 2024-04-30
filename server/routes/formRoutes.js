@@ -1,13 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const formController = require('../controllers/formController');
+const FormController = require('../controllers/formController');
 
-router.post('/', formController.createForm);
-router.get('/', formController.getAllForms);
-router.get('/:id', formController.getFormById);
-router.put('/:id', formController.updateForm);
-router.delete('/:id', formController.deleteForm);
+// Route pour récupérer les types de champs disponibles
+router.get('/inputTypes', FormController.getInputTypes);
 
-
+// Vos autres routes existantes pour créer, lire, mettre à jour et supprimer les formulaires
 
 module.exports = router;

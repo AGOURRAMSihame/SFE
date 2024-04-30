@@ -5,7 +5,8 @@ import Index from './pages/index';
 import About from './pages/about';
 import Services from './pages/services';
 import Form from './pages/form';
-
+import Contact from './pages/contact';
+import Sidebar from './pages/sidebar';
 function App() {
   return (
     <Router>
@@ -15,6 +16,10 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/form" element={<Form />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/sidebar" element={<Sidebar />} />
+
+
       </Routes>
     </Router>
   );

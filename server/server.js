@@ -5,6 +5,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const path = require('path');
 const formRoutes = require('./routes/formRoutes');
+const messageRoute = require('./routes/MessageRoute');
 
 dotenv.config();
 app.use(express.json());
@@ -38,7 +39,9 @@ const dbConnect = async () => {
     }
 };
 dbConnect();
-app.use('/forms', formRoutes);
+app.use('/', formRoutes);
+
+app.use('/', messageRoute);
 
 const PORT = process.env.PORT || 3000;
 

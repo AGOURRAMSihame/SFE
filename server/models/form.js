@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-// Définition du schéma de champ
 const fieldSchema = new mongoose.Schema({
     label: String,
     type: {
@@ -9,10 +8,9 @@ const fieldSchema = new mongoose.Schema({
     }
 });
 
-// Définition du schéma de formulaire
 const formSchema = new mongoose.Schema({
     title: String,
-    fields: [fieldSchema] // Utilisation du schéma de champ directement ici
+    fields: [fieldSchema]
 });
 
 const Form = mongoose.model('Form', formSchema);
