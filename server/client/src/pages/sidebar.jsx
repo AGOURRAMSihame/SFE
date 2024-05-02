@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 const Sidebar = ({ onInputAdd, onSave }) => {
     const [inputType, setInputType] = useState('');
     const [inputLabel, setInputLabel] = useState('');
+    const [inputOptions, setInputOptions] = useState('');
+    const [options, setOptions] = useState([]);
 
     const handleInputTypeChange = (e) => {
         setInputType(e.target.value);
@@ -12,16 +14,29 @@ const Sidebar = ({ onInputAdd, onSave }) => {
         setInputLabel(e.target.value);
     };
 
+    const handleOptionsChange = (e) => {
+        setInputOptions(e.target.value);
+    };
+
     const handleAddClick = () => {
         if (inputType && inputLabel) {
-            onInputAdd(inputType, inputLabel);
+            onInputAdd(inputType, inputLabel, options);
             setInputType('');
             setInputLabel('');
+            setInputOptions('');
+            setOptions([]);
         }
     };
 
     const handleSaveClick = () => {
         onSave();
+    };
+
+    const handleAddOption = () => {
+        if (inputOptions.trim() !== '') {
+            setOptions([...options, inputOptions]);
+            setInputOptions('');
+        }
     };
 
     return (
@@ -43,6 +58,18 @@ const Sidebar = ({ onInputAdd, onSave }) => {
                 <label htmlFor="inputLabel" className="block text-sm font-semibold mb-1">Input Label</label>
                 <input type="text" id="inputLabel" value={inputLabel} onChange={handleLabelChange} placeholder="Enter Label" className="block w-full p-2 bg-gray-100 border border-gray-300 rounded" />
             </div>
+            {inputType === 'checkbox' || inputType === 'radio' ? (
+                <div className="mb-4">
+                    <label htmlFor="inputOptions" className="block text-sm font-semibold mb-1">{inputType === 'checkbox' ? 'Checkbox Options' : 'Radio Options'}</label>
+                    <input type="text" id="inputOptions" value={inputOptions} onChange={handleOptionsChange} placeholder="Enter Options" className="block w-full p-2 bg-gray-100 border border-gray-300 rounded" />
+                    <button onClick={handleAddOption} className="py-2 px-4 bg-blue-500 text-white rounded mt-2">Add Option</button>
+                    {options.map((option, index) => (
+                        <div key={index} className="mt-2">
+                            <span>{option}</span>
+                        </div>
+                    ))}
+                </div>
+            ) : null}
             <button onClick={handleAddClick} className="py-2 px-4 bg-blue-500 text-white rounded mb-4">Add Input</button>
             <button onClick={handleSaveClick} className="py-2 px-4 bg-blue-500 text-white rounded">Save Form</button>
         </div>
