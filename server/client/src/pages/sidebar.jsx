@@ -1,3 +1,4 @@
+// Sidebar.jsx
 import React, { useState } from 'react';
 
 const Sidebar = ({ onInputAdd, onSave }) => {

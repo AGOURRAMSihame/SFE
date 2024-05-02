@@ -1,3 +1,4 @@
+// Form.jsx
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 
@@ -8,9 +9,26 @@ const Form = () => {
         setFormInputs([...formInputs, { type, label, options }]);
     };
 
-    const handleSave = () => {
-        // Ajoutez ici la logique pour enregistrer le formulaire
-        console.log('Form inputs:', formInputs);
+    const handleSave = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/save', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ inputs: formInputs }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Une erreur est survenue lors de l\'enregistrement du formulaire.');
+            }
+
+            alert('Formulaire enregistré avec succès !');
+
+        } catch (error) {
+            console.error(error);
+            alert('Une erreur est survenue lors de l\'enregistrement du formulaire.');
+        }
     };
 
     return (
