@@ -1,16 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const Sidebar = ({ handleInputClick, handleLabelClick }) => {
+const Sidebar = ({ onInputAdd, onSave }) => {
+    const [inputType, setInputType] = useState('');
+    const [inputLabel, setInputLabel] = useState('');
+
+    const handleInputTypeChange = (e) => {
+        setInputType(e.target.value);
+    };
+
+    const handleLabelChange = (e) => {
+        setInputLabel(e.target.value);
+    };
+
+    const handleAddClick = () => {
+        if (inputType && inputLabel) {
+            onInputAdd(inputType, inputLabel);
+            setInputType('');
+            setInputLabel('');
+        }
+    };
+
+    const handleSaveClick = () => {
+        onSave();
+    };
+
     return (
-        <div className="bg-gray-200 p-4 h-screen flex flex-col">
-            <h2 className="mb-4">Labels</h2>
-            <button onClick={() => handleLabelClick('Label 1')} className="py-2 px-4 mb-2 bg-blue-500 text-white rounded">Label 1</button>
-            <button onClick={() => handleLabelClick('Label 2')} className="py-2 px-4 mb-2 bg-blue-500 text-white rounded">Label 2</button>
-            {/* Ajoutez d'autres boutons pour d'autres labels si nécessaire */}
-            <h2 className="mt-4 mb-4">Input Types</h2>
-            <button onClick={() => handleInputClick('text')} className="py-2 px-4 mb-2 bg-blue-500 text-white rounded">Text Input</button>
-            <button onClick={() => handleInputClick('password')} className="py-2 px-4 mb-2 bg-blue-500 text-white rounded">Password Input</button>
-            {/* Ajoutez d'autres boutons pour d'autres types d'inputs si nécessaire */}
+        <div className="sidebar bg-gray-200 p-4 h-screen w-1/4 flex flex-col">
+            <div className="mb-4">
+                <label htmlFor="inputType" className="block text-sm font-semibold mb-1">Input Type</label>
+                <select id="inputType" value={inputType} onChange={handleInputTypeChange} className="block w-full p-2 bg-gray-100 border border-gray-300 rounded">
+                    <option value="">Select an input type</option>
+                    <option value="text">Text</option>
+                    <option value="email">Email</option>
+                    <option value="number">Number</option>
+                    <option value="date">Date</option>
+                    <option value="checkbox">Checkbox</option>
+                    <option value="radio">Radio</option>
+                    <option value="file">File</option>
+                </select>
+            </div>
+            <div className="mb-4">
+                <label htmlFor="inputLabel" className="block text-sm font-semibold mb-1">Input Label</label>
+                <input type="text" id="inputLabel" value={inputLabel} onChange={handleLabelChange} placeholder="Enter Label" className="block w-full p-2 bg-gray-100 border border-gray-300 rounded" />
+            </div>
+            <button onClick={handleAddClick} className="py-2 px-4 bg-blue-500 text-white rounded mb-4">Add Input</button>
+            <button onClick={handleSaveClick} className="py-2 px-4 bg-blue-500 text-white rounded">Save Form</button>
         </div>
     );
 };
