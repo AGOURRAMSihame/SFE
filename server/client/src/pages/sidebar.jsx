@@ -1,11 +1,13 @@
 // Sidebar.jsx
+
 import React, { useState } from 'react';
 
-const Sidebar = ({ onInputAdd, onSave }) => {
+const Sidebar = ({ onInputAdd, onSave, onTitleChange }) => {
     const [inputType, setInputType] = useState('');
     const [inputLabel, setInputLabel] = useState('');
     const [inputOptions, setInputOptions] = useState('');
     const [options, setOptions] = useState([]);
+    const [title, setTitle] = useState('');
 
     const handleInputTypeChange = (e) => {
         setInputType(e.target.value);
@@ -40,8 +42,17 @@ const Sidebar = ({ onInputAdd, onSave }) => {
         }
     };
 
+    const handleTitleChange = (e) => {
+        setTitle(e.target.value);
+        onTitleChange(e.target.value);
+    };
+
     return (
         <div className="sidebar bg-gray-200 p-4 h-screen w-1/4 flex flex-col">
+            <div className="mb-4">
+                <label htmlFor="formTitle" className="block text-sm font-semibold mb-1">Form Title</label>
+                <input type="text" id="formTitle" value={title} onChange={handleTitleChange} placeholder="Enter Form Title" className="block w-full p-2 bg-gray-100 border border-gray-300 rounded" />
+            </div>
             <div className="mb-4">
                 <label htmlFor="inputType" className="block text-sm font-semibold mb-1">Input Type</label>
                 <select id="inputType" value={inputType} onChange={handleInputTypeChange} className="block w-full p-2 bg-gray-100 border border-gray-300 rounded">
@@ -56,7 +67,7 @@ const Sidebar = ({ onInputAdd, onSave }) => {
                 </select>
             </div>
             <div className="mb-4">
-                <label htmlFor="inputLabel" className="block text-sm font-semibold mb-1">Input Label</label>
+                <label htmlFor="inputLabel" className="block text-sm font-semibold mb-1">Label</label>
                 <input type="text" id="inputLabel" value={inputLabel} onChange={handleLabelChange} placeholder="Enter Label" className="block w-full p-2 bg-gray-100 border border-gray-300 rounded" />
             </div>
             {inputType === 'checkbox' || inputType === 'radio' ? (

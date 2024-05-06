@@ -1,3 +1,4 @@
+// Import des modules
 const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
@@ -7,9 +8,11 @@ const path = require('path');
 const dataRoutes = require('./routes/formRoutes');
 const messageRoute = require('./routes/MessageRoute');
 
+// Configuration de l'environnement
 dotenv.config();
 app.use(express.json());
 
+// Middleware CORS
 if (process.env.NODE_ENV === 'local') {
     app.use(cors({
         origin: 'http://localhost:3000',
@@ -21,15 +24,7 @@ if (process.env.NODE_ENV === 'local') {
     }));
 }
 
-
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, 'client','dist')));
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'client', 'dist' ,'index.html'));
-    });
-}
-
-
+// Connexion à la base de données
 const dbConnect = async () => {
     try {
         await mongoose.connect(process.env.MONGODB_URL);
@@ -39,10 +34,21 @@ const dbConnect = async () => {
     }
 };
 dbConnect();
-app.use('/', dataRoutes);
 
+// Routes de l'API
+app.use('/', dataRoutes);
 app.use('/', messageRoute);
 
+// Routes statiques (uniquement en production)
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, 'client','dist')));
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'dist' ,'index.html'));
+    });
+}
+
+// Configuration du port
 const PORT = process.env.PORT || 3000;
 
+// Démarrage du serveur
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

@@ -1,9 +1,11 @@
 // Form.jsx
+
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 
 const Form = () => {
     const [formInputs, setFormInputs] = useState([]);
+    const [formTitle, setFormTitle] = useState('');
 
     const handleInputAdd = (type, label, options) => {
         setFormInputs([...formInputs, { type, label, options }]);
@@ -16,7 +18,7 @@ const Form = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ inputs: formInputs }),
+                body: JSON.stringify({ title: formTitle, inputs: formInputs }),
             });
 
             if (!response.ok) {
@@ -31,14 +33,18 @@ const Form = () => {
         }
     };
 
+    const handleTitleChange = (title) => {
+        setFormTitle(title);
+    };
+
     return (
         <div className="flex">
             {/* Sidebar */}
-            <Sidebar onInputAdd={handleInputAdd} onSave={handleSave} />
-            {/* Contenu principal */}
+            <Sidebar onInputAdd={handleInputAdd} onSave={handleSave} onTitleChange={handleTitleChange} />
+         {/* Contenu principal */}
             <div className="p-4 w-1/2">
-                <h2 className="text-lg font-semibold mb-4">Form Inputs</h2>
-                {/* Affichage des inputs ajoutés */}
+                <h2 className="text-lg font-semibold mb-4">{formTitle}</h2>
+               
                 {formInputs.map((input, index) => (
                     <div key={index} className="mb-4">
                         <label className="block text-sm font-semibold text-gray-700 mb-1">{input.label}</label>

@@ -162,29 +162,28 @@ const Navbar = () => {
         <div className="container mx-auto">
           <div className="flex justify-between items-center">
             <div className="w-12 h-12">
-              <img
-                className="w-full h-full"
-                src="https://th.bing.com/th/id/R.01eab780618cb688af2bfa044cf2af5a?rik=72bTO7biDcLEoA&pid=ImgRaw&r=0"
-                alt="notfound"
-              />
+            <a href="/">
+    <img
+        className="w-full h-full"
+        src="https://th.bing.com/th/id/R.01eab780618cb688af2bfa044cf2af5a?rik=72bTO7biDcLEoA&pid=ImgRaw&r=0"
+        alt="notfound"
+    />
+</a>
             </div>
             <div className="flex justify-center space-x-4">
               <Link
                 to="/about"
-                className="text-blue-500 hover:text-blue-600 transition-all font-medium"
-              >
+                className="text-blue-500 hover:text-blue-600 transition-all font-medium">
                 A Propos
               </Link>
               <Link
                 to="/services"
-                className="text-blue-500 hover:text-blue-600 transition-all font-medium"
-              >
+                className="text-blue-500 hover:text-blue-600 transition-all font-medium">
                 Services
               </Link>
               <Link
                 to="/contact"
-                className="text-blue-500 hover:text-blue-600 transition-all font-medium"
-              >
+                className="text-blue-500 hover:text-blue-600 transition-all font-medium">
                 Contact Us
               </Link>
             </div>
