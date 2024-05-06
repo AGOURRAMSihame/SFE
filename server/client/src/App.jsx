@@ -7,7 +7,12 @@ import About from './pages/about';
 import Services from './pages/services';
 import Form from './pages/form';
 import Contact from './pages/contact';
-import Sidebar from './pages/Sidebar'; // Correction ici
+import Sidebar from './pages/Sidebar'; 
+import Footer from './pages/footer';
+import PageList from './pages/FormListPage';
+import ViewForm from './pages/view';
+import EditForm from './pages/edit';
+
 
 function App() {
   return (
@@ -20,7 +25,11 @@ function App() {
         <Route path="/form" element={<Form />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/sidebar" element={<Sidebar />} />
+        <Route path="/list" element={< PageList/>} />
+        <Route path="/view/:id" element={< ViewForm/> }/>
+        <Route path="/update/:id" element={< EditForm/> }/>
       </Routes>
+      <Footer/>
     </Router>
   );
 }
