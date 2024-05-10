@@ -12,6 +12,9 @@ import Footer from './pages/footer';
 import PageList from './pages/FormListPage';
 import ViewForm from './pages/view';
 import EditForm from './pages/edit';
+import FormViewer from './pages/formview';
+
+
 
 
 function App() {
@@ -28,6 +31,9 @@ function App() {
         <Route path="/list" element={< PageList/>} />
         <Route path="/view/:id" element={< ViewForm/> }/>
         <Route path="/update/:id" element={< EditForm/> }/>
+        <Route path="/viewform/:id" component={<FormViewer/>} />
+
+       
       </Routes>
       <Footer/>
     </Router>
