@@ -1,11 +1,11 @@
-// Form.jsx
-
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Importer useNavigate pour gérer la redirection
 import Sidebar from './Sidebar';
 
 const Form = () => {
     const [formInputs, setFormInputs] = useState([]);
     const [formTitle, setFormTitle] = useState('');
+    const navigate = useNavigate(); // Récupérer la fonction navigate pour gérer la redirection
 
     const handleInputAdd = (type, label, options) => {
         setFormInputs([...formInputs, { type, label, options }]);
@@ -25,8 +25,9 @@ const Form = () => {
                 throw new Error('Une erreur est survenue lors de l\'enregistrement du formulaire.');
             }
 
+            const formData = await response.json();
             alert('Formulaire enregistré avec succès !');
-
+            navigate(`/viewform/${formData._id}`); // Redirection vers la page avec l'ID du formulaire
         } catch (error) {
             console.error(error);
             alert('Une erreur est survenue lors de l\'enregistrement du formulaire.');
@@ -41,10 +42,10 @@ const Form = () => {
         <div className="flex">
             {/* Sidebar */}
             <Sidebar onInputAdd={handleInputAdd} onSave={handleSave} onTitleChange={handleTitleChange} />
-         {/* Contenu principal */}
+            {/* Contenu principal */}
             <div className="p-4 w-1/2">
                 <h2 className="text-lg font-semibold mb-4">{formTitle}</h2>
-               
+
                 {formInputs.map((input, index) => (
                     <div key={index} className="mb-4">
                         <label className="block text-sm font-semibold text-gray-700 mb-1">{input.label}</label>
@@ -71,6 +72,7 @@ const Form = () => {
                         )}
                     </div>
                 ))}
+                <button onClick={handleSave} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200">Envoyer</button>
             </div>
         </div>
     );

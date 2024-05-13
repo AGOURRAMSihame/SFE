@@ -31,7 +31,8 @@ function App() {
         <Route path="/list" element={< PageList/>} />
         <Route path="/view/:id" element={< ViewForm/> }/>
         <Route path="/update/:id" element={< EditForm/> }/>
-        <Route path="/viewform/:id" component={<FormViewer/>} />
+        <Route path="/viewform/:id" element={<FormViewer />} />
+
 
        
       </Routes>

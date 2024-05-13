@@ -1,38 +1,64 @@
-// ViewForm.jsx
-
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-function ViewForm() {
+function FormById() {
   const [formData, setFormData] = useState(null);
-  const { id } = useParams(); // Récupérer l'ID du formulaire depuis l'URL
+  const { id } = useParams();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/forms/${id}`) // Faire une requête GET pour récupérer les données du formulaire
-      .then(response => {
+    const fetchFormById = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/forms/${id}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        return response.json();
-      })
-      .then(data => {
-        setFormData(data); // Mettre à jour l'état avec les données du formulaire
-      })
-      .catch(error => {
+        const data = await response.json();
+        setFormData(data);
+      } catch (error) {
         console.error('Error fetching form data:', error);
-      });
-  }, [id]); // Exécuter cet effet uniquement lorsque l'ID change
+      }
+    };
+
+    fetchFormById();
+  }, [id]);
 
   if (!formData) {
-    return <div>Loading...</div>; // Afficher un message de chargement si les données ne sont pas encore disponibles
+    return <div>Loading...</div>;
   }
 
   return (
     <div>
-      <h1>{formData.title}</h1> {/* Afficher le titre du formulaire */}
-      {/* Afficher les autres champs du formulaire */}
+      
+      <h1>{formData.title}</h1>
+      <form>
+        {formData.inputs.map((input, index) => (
+          <div key={index}>
+            <label>{input.label}</label>
+            {input.type === 'textarea' ? (
+              <textarea />
+            ) : input.type === 'radio' ? (
+              input.options.map((option, optionIndex) => (
+                <div key={optionIndex}>
+                  <input type="radio" name={`radio-${index}`} value={option} />
+                  <label>{option}</label>
+                </div>
+              ))
+            ) : input.type === 'checkbox' ? (
+              input.options.map((option, optionIndex) => (
+                <div key={optionIndex}>
+                  <input type="checkbox" value={option} />
+                  <label>{option}</label>
+                </div>
+              ))
+            ) : (
+              <input type={input.type} />
+            )}
+          </div>
+        ))}
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
 }
 
-export default ViewForm;
+export default FormById;
