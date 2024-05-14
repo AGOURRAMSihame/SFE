@@ -7,6 +7,8 @@ const mongoose = require('mongoose');
 const path = require('path');
 const dataRoutes = require('./routes/formRoutes');
 const messageRoute = require('./routes/MessageRoute');
+const ResponceRoute = require('./routes/valueRoutes');
+
 
 // Configuration de l'environnement
 dotenv.config();
@@ -38,6 +40,8 @@ dbConnect();
 // Routes de l'API
 app.use('/', dataRoutes);
 app.use('/', messageRoute);
+app.use('/',ResponceRoute)
+
 
 // Routes statiques (uniquement en production)
 if (process.env.NODE_ENV === 'production') {
