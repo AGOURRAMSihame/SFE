@@ -4,6 +4,8 @@ const Form = require('../models/form');
 exports.submitResponse = async (req, res) => {
     try {
         const { formId, formData } = req.body;
+        console.log('Form ID:', formId);
+        console.log('Form Data:', formData); // Vérifiez les données reçues du front-end
 
         // Validation des données d'entrée
         if (!formId || !formData) {
@@ -19,14 +21,7 @@ exports.submitResponse = async (req, res) => {
         // Création de l'objet de réponse
         const response = new Response({
             formId: formId,
-            formData: formData.map(item => {
-                const input = form.inputs.find(input => input.label === item.label);
-                return {
-                    label: item.label,
-                    value: item.value,
-                    type: input ? input.type : 'unknown' // Si le type n'est pas trouvé, utilisez 'unknown'
-                };
-            })
+            formData: formData
         });
 
         // Sauvegarde de la réponse dans la base de données
